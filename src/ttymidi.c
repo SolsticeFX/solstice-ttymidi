@@ -54,8 +54,8 @@ int serial;
 
 static struct argp_option options[] =
 {
-	{"serialdevice" , 's', "DEV" , 0, "Serial device to use. Default = /dev/ttyUSB0", 0 },
-	{"baudrate"     , 'b', "BAUD", 0, "Serial port baud rate. Default = 31250", 0 },
+	{"serialdevice" , 's', "DEV" , 0, "Serial device to use. Default = /dev/ttyAMA2", 0 },
+	{"baudrate"     , 'b', "BAUD", 0, "Serial port baud rate. Default = 38400", 0 },
 #ifdef DEBUG
 	{"verbose"      , 'v', 0     , 0, "For debugging: Produce verbose output", 0 },
 	{"printonly"    , 'p', 0     , 0, "Super debugging: Print values read from serial -- and do nothing else", 0 },
@@ -150,13 +150,13 @@ void arg_set_defaults(arguments_t *arguments)
 	arguments->verbose   = 0;
 	arguments->printonly = 0;
 #endif
-	arguments->baudrate  = 31250;
-	strncpy(arguments->serialdevice, "/dev/ttyUSB0", MAX_DEV_STR_LEN);
-	strncpy(arguments->name, "ttymidi", MAX_DEV_STR_LEN);
+	arguments->baudrate  = 38400;
+	strncpy(arguments->serialdevice, "/dev/ttyAMA2", MAX_DEV_STR_LEN);
+	strncpy(arguments->name, "solsticedev", MAX_DEV_STR_LEN);
 }
 
 const char *argp_program_version     = "ttymidi 1.0.0";
-const char *argp_program_bug_address = "falktx@moddevices.com";
+const char *argp_program_bug_address = "rithwiksathyan@gmail.com";
 static char doc[]       = "ttymidi - Connect serial port devices to JACK MIDI programs!";
 static struct argp argp = { options, parse_opt, NULL, doc, NULL, NULL, NULL };
 static arguments_t arguments;
