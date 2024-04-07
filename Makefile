@@ -1,6 +1,6 @@
 
 DESTDIR ?=
-PREFIX = /usr/
+PREFIX = /usr
 
 CC ?= gcc
 CFLAGS += -std=gnu99 -Wall -Wextra -Wshadow -Werror -fvisibility=hidden
