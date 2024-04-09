@@ -544,6 +544,7 @@
               // Unknown data byte count. Note that Real-Time messages
               // may be interleaved with a System Exclusive!
               // Every SysEx byte until 0xF7 should start with a 0-bit, so skipping is safe.
+              data_bytes_cnt = 5;
               last_status_byte = 0;
               continue;
             case 0xF2:
