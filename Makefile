@@ -12,24 +12,24 @@ else
 CFLAGS += -O2 -DNDEBUG
 endif
 
-all: sysex-ttymidi sysex-ttymidi.so
+all: solstice-ttymidi solstice-ttymidi.so
 
 debug:
 	$(MAKE) DEBUG=1
 
-sysex-ttymidi: src/sysex-ttymidi.c src/mod-semaphore.h
+solstice-ttymidi: src/solstice-ttymidi.c src/mod-semaphore.h
 	$(CC) $< $(CFLAGS) $(shell pkg-config --cflags --libs jack) $(LDFLAGS) -lpthread -o $@
 
-sysex-ttymidi.so: src/sysex-ttymidi.c src/mod-semaphore.h
+solstice-ttymidi.so: src/solstice-ttymidi.c src/mod-semaphore.h
 	$(CC) $< $(CFLAGS) $(shell pkg-config --cflags --libs jack) $(LDFLAGS) -fPIC -lpthread -shared -o $@
 
-install: sysex-ttymidi sysex-ttymidi.so
-	install -m 755 sysex-ttymidi    $(DESTDIR)$(PREFIX)/bin/
-	install -m 755 sysex-ttymidi.so $(DESTDIR)$(shell pkg-config --variable=libdir jack)/jack/
+install: solstice-ttymidi solstice-ttymidi.so
+	install -m 755 solstice-ttymidi    $(DESTDIR)$(PREFIX)/bin/
+	install -m 755 solstice-ttymidi.so $(DESTDIR)$(shell pkg-config --variable=libdir jack)/jack/
 
 clean:
-	rm -f sysex-ttymidi sysex-ttymidi.so
+	rm -f solstice-ttymidi solstice-ttymidi.so
 
 uninstall:
-	rm $(DESTDIR)$(PREFIX)/bin/sysex-ttymidi
-	rm $(DESTDIR)$(shell pkg-config --variable=libdir jack)/jack/sysex-ttymidi.so
+	rm $(DESTDIR)$(PREFIX)/bin/solstice-ttymidi
+	rm $(DESTDIR)$(shell pkg-config --variable=libdir jack)/jack/solstice-ttymidi.so
