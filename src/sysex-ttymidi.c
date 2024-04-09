@@ -633,7 +633,7 @@ int main(int argc, char** argv)  // *new* int to remove compilation warning
 	//arguments arguments;
 	struct termios oldtio, newtio;
 	struct serial_struct ser_info;
-	char* modem_device = "/dev/ttyS0";
+	char* modem_device = "/dev/ttyAMA2";
 	snd_seq_t *seq;
 
 	arg_set_defaults(&arguments);
