@@ -31,5 +31,5 @@ clean:
 	rm -f sysex-ttymidi sysex-ttymidi.so
 
 uninstall:
-	rm $(DESTDIR)$(PREFIX)/bin/ttymidi
+	rm $(DESTDIR)$(PREFIX)/bin/sysex-ttymidi
 	rm $(DESTDIR)$(shell pkg-config --variable=libdir jack)/jack/sysex-ttymidi.so
