@@ -24,8 +24,8 @@ sysex-ttymidi.so: src/sysex-ttymidi.c src/mod-semaphore.h
 	$(CC) $< $(CFLAGS) $(shell pkg-config --cflags --libs jack) $(LDFLAGS) -fPIC -lpthread -shared -o $@
 
 install: sysex-ttymidi sysex-ttymidi.so
-	install -m 755 ttymidi    $(DESTDIR)$(PREFIX)/bin/
-	install -m 755 ttymidi.so $(DESTDIR)$(shell pkg-config --variable=libdir jack)/jack/
+	install -m 755 sysex-ttymidi    $(DESTDIR)$(PREFIX)/bin/
+	install -m 755 sysex-ttymidi.so $(DESTDIR)$(shell pkg-config --variable=libdir jack)/jack/
 
 clean:
 	rm -f sysex-ttymidi sysex-ttymidi.so
