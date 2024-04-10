@@ -494,6 +494,8 @@
           // Nothing to read. Try again in the next loop.
           continue;
         }
+        printf("%lu\n", sizeof(buffer));
+      
         
         if (arguments.verbose) {
           printf("%02x\t", buffer[0] & 0xFF);
@@ -530,23 +532,24 @@
               data_bytes_cnt = 2;
               break;
             }
-
-          }} else {
+           }
+          } else {
             // Compare https://www.midi.org/specifications-old/item/table-1-summary-of-midi-message
             switch(buffer[0]) {
             case 0xF7:
               // System exclusive end
               last_status_byte = 0;
               break;
-            case 0xF0:
+            case 0xf0:
               // System exclusive begin
+		        fprintf(stderr, "SysEX detected\n");
 
               // Unknown data byte count. Note that Real-Time messages
               // may be interleaved with a System Exclusive!
               // Every SysEx byte until 0xF7 should start with a 0-bit, so skipping is safe.
               data_bytes_cnt = 5;
               last_status_byte = 0;
-              continue;
+              break;
             case 0xF2:
               // Song Position Pointer
               data_bytes_cnt = 2;
@@ -653,17 +656,19 @@
           if ((buffer[0] & 0x80) && !(buffer[1] & 0x80) && !(buffer[2] & 0x80)) {
             jack_ringbuffer_write(jackdata->ringbuffer_in, (const char *) buffer, ringbuffer_msg_size);
           } else {
+	            jack_ringbuffer_write(jackdata->ringbuffer_in, (const char *) buffer, ringbuffer_msg_size);
             // Bad bytes. Discard the event.
             if (arguments.verbose) {
               printf("Sanity check failed, bad bytes: %02x\t%02x\t%02x\n", buffer[0], buffer[1], buffer[2]);
               fflush(stdout);
             }
           }
+
           // Unexpected data byte. Discard it.
-          if (arguments.verbose) {
-            printf("Status byte check failed, first bad byte: %02x\n", buffer[0]);
-            fflush(stdout);
-          }
+//          if (arguments.verbose) {
+//            printf("Status byte check failed, first bad byte: %02x\n", buffer[0]);
+//            fflush(stdout);
+//          }
       }
     }
     return NULL;
